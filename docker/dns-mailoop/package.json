@@ -1,0 +1,12 @@
+{
+  "name": "@alendo/dns-mailoop",
+  "description": "DNS for test world wide email messaging on your localhost",
+  "version": "0.0.0",
+  "main": "index.js",
+  "author": "Alendo",
+  "license": "MIT",
+  "dependencies": {
+    "dns-protocol": "^2.0.1",
+    "tslib": "^1.9.3"
+  }
+}

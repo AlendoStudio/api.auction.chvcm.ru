@@ -1,0 +1,56 @@
+version: '3'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: docker/web/Dockerfile
+    restart: on-failure
+    ports:
+    - 8080:80
+    environment:
+      # Node.js
+      NODE_ENV: production
+      NODE_TLS_REJECT_UNAUTHORIZED: 0
+      #  @alendo/recaptcha
+      RECAPTCHA_SECRET: disable
+      # DB
+      REDIS_URL: redis://redis:6379
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/postgres
+      DATABASE_NATIVE: 'true'
+      DATABASE_POOL_MAX_WEB: 10
+      # Web
+      CORS_WHITELIST: ""
+      EXPRESS_BODY_PARSER_LIMIT: 100kb
+      BUSBOY_LIMITS_FILESIZE: 10mb
+      # Email
+      EMAIL_SMTP: smtp://bender@ilovebender.com:killallhumans@mail:587/?pool=true
+      EMAIL_FROM: Bender Bending Rodríguez <bender@ilovebender.com>
+      # Internal
+      JWT_SECRET: jwt
+    depends_on:
+    - postgres
+    - redis
+    - mail
+  mail:
+    image: analogic/poste.io:2
+    hostname: ilovebender.com
+    dns: dns-mailoop
+    restart: on-failure
+    ports:
+    - 8081:80
+    environment:
+      HTTPS: 'OFF'
+      DISABLE_CLAMAV: 'TRUE'
+    volumes:
+    - /etc/localtime:/etc/localtime:ro
+    - /mnt/alendo-api.auction.chvcm.ru-mail:/data
+    depends_on:
+    - dns-mailoop
+  dns-mailoop:
+    build:
+      context: docker/dns-mailoop
+      dockerfile: Dockerfile
+    restart: on-failure
+    environment:
+      LOOP: ilovebender.com

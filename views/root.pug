@@ -1,0 +1,60 @@
+extends ./master
+block head
+  title Welcome!
+block body
+  div
+    div.jumbotron
+      h1.display-4 Welcome!
+      p.lead
+        | This site is back-end for
+        =" "
+        a(href="https://auction.chvcm.ru" target="_blank") auction.chvcm.ru
+        | .
+      p.lead Created for
+        =" "
+        a(href="http://chvcm.ru" target="_blank") serious business
+        =" "
+        i.fas.fa-hand-holding-usd
+        =" "
+        | with
+        =" "
+        i.fas.fa-heart
+        =" "
+        | by
+        =" "
+        a(href="http://alendo.studio" target="_blank") Alendo Studio
+        =" "
+        | (
+        i.fab.fa-github-alt
+        =" "
+        a(href="https://github.com/AlendoStudio" target="_blank") GitHub Profile
+        | ) under
+        =" "
+        a(href="https://github.com/AlendoStudio/api.auction.chvcm.ru/blob/master/LICENSE" target="_blank") MIT licence
+        | .
+      hr.my-4
+      p Powered by free and open source technologies, such as:
+        ul
+          li
+            a(href="https://nodejs.org" target="_blank") Node.js
+            =" "
+            | — amazing JavaScript run-time environment with non-blocking asynchronous I/O operations.
+          li
+            a(href="https://expressjs.com" target="_blank") Express.js
+            =" "
+            | — fast, unopinionated, minimalist web framework for Node.js.
+          li
+            a(href="https://www.typescriptlang.org" target="_blank") TypeScript
+            =" "
+            | — is a typed superset of JavaScript that compiles to plain JavaScript.
+          li
+            a(href="https://www.postgresql.org" target="_blank") PostgreSQL
+            =" "
+            | — the world's most advanced open source relational database.
+      a(href="https://github.com/AlendoStudio/api.auction.chvcm.ru" role="button").btn.btn-primary.btn-lg
+        i.fab.fa-github
+        |  Source Code
+      =" "
+      a(href="https://github.com/AlendoStudio/api.auction.chvcm.ru/wiki" role="button").btn.btn-primary.btn-lg
+        i.fas.fa-book
+        |  Documentation

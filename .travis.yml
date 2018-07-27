@@ -1,0 +1,125 @@
+language: node_js
+node_js:
+- 'lts/*'
+- 'node'
+cache:
+  yarn: true
+sudo: required
+dist: trusty
+
+services:
+- docker
+
+env:
+  global:
+  # Node.js
+  - NODE_ENV=staging
+  # @alendo/recaptcha
+  - RECAPTCHA_SECRET=google
+  # DB
+  - REDIS_URL=redis://localhost:6379
+  - DATABASE_URL=postgresql://postgres:postgres@localhost:5432/postgres
+  - DATABASE_NATIVE=true
+  - DATABASE_POOL_MAX_WEB=10
+  - DATABASE_POOL_MAX_WORKER=10
+  # Web
+  - PORT=8080
+  - HOST=0.0.0.0
+  - CORS_WHITELIST=http://localhost:3000
+  - EXPRESS_BODY_PARSER_LIMIT=100kb
+  - BUSBOY_LIMITS_FILESIZE=10mb
+  # Email
+  - EMAIL_SMTP="smtps://username:password@smtp.example.com/?pool=true"
+  - EMAIL_FROM="Bender Bending Rodríguez <bender@ilovebender.com>"
+  # Internal
+  - JWT_SECRET=jwt
+  matrix:
+  - PG_VERSION=10 REDIS_VERSION=4
+
+before_install:
+# https://github.com/travis-ci/travis-ci/issues/4842#issuecomment-311527059
+- sudo service postgresql stop
+- while sudo lsof -Pi :5432 -sTCP:LISTEN -t; do sleep 1; done
+# Docker
+- docker pull "postgres:${PG_VERSION}"
+- docker pull "redis:${REDIS_VERSION}"
+- docker run -d -p 5432:5432 --name alendo-api.auction.chvcm.ru-pg "postgres:${PG_VERSION}"
+- docker run -d -p 6379:6379 --name alendo-api.auction.chvcm.ru-redis "redis:${REDIS_VERSION}"
+# Install yarn
+- curl -o- -L https://yarnpkg.com/install.sh | bash -s
+- export PATH="$HOME/.yarn/bin:$PATH"
+# Global packages
+- yarn global add codeclimate-test-reporter
+
+install: yarn install --production false
+
+script: yarn test-cov
+
+after_script: codeclimate-test-reporter < coverage/lcov.info
+
+stages:
+- prepare cache
+- test
+- deploy
+jobs:
+  include:
+  - stage: prepare cache
+    node_js: 'node'
+    env:
+    - NODE_ENV=staging
+    - PG_VERSION=latest
+    - REDIS_VERSION=latest
+    script: true
+    after_script: true
+  - stage: test
+    name: tslint
+    node_js: 'node'
+    env:
+    - NODE_ENV=production
+    - PG_VERSION=latest
+    - REDIS_VERSION=latest
+    script: yarn lint
+    after_script: true
+  - stage: deploy
+    name: releases
+    node_js: 'node'
+    env:
+    - NODE_ENV=production
+    - PG_VERSION=latest
+    - REDIS_VERSION=latest
+    script: true
+    after_script: true
+    before_deploy:
+    - rm -rf dist
+    - yarn pack
+    - sha256sum *.tgz > SHASUMS256.txt
+    - cat SHASUMS256.txt
+    deploy:
+      provider: releases
+      file_glob: true
+      api_key:
+        secure: $GH_TOKEN
+      file:
+      - "*.tgz"
+      - SHASUMS256.txt
+      skip_cleanup: true
+      on:
+        tags: true
+  - stage: deploy
+    name: pages
+    node_js: 'node'
+    env:
+    - NODE_ENV=production
+    - PG_VERSION=latest
+    - REDIS_VERSION=latest
+    script: true
+    after_script: true
+    before_deploy: yarn build-apidoc
+    deploy:
+      provider: pages
+      local-dir: apidoc
+      skip-cleanup: true
+      github-token: $GH_TOKEN
+      keep-history: true
+      on:
+        branch: master

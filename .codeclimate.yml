@@ -1,0 +1,35 @@
+version: "2"
+plugins:
+  fixme:
+    enabled: true
+  git-legal:
+    enabled: true
+  markdownlint:
+    enabled: true
+  nodesecurity:
+    enabled: true
+  shellcheck:
+    enabled: true
+  tslint:
+    enabled: true
+    config: tslint.json
+exclude_patterns:
+- ".idea/"
+- ".nyc_output/"
+- ".vscode/"
+- "apidoc/"
+- "coverage/"
+# Default
+- "config/"
+- "db/"
+- "dist/"
+- "features/"
+- "**/node_modules/"
+- "script/"
+- "**/spec/"
+- "**/test/"
+- "**/tests/"
+- "Tests/"
+- "**/vendor/"
+- "**/*_test.go"
+- "**/*.d.ts"
