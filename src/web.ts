@@ -11,11 +11,14 @@ import * as fileUpload from "express-fileupload";
 import * as helmet from "helmet";
 import * as morgan from "morgan";
 
+import * as cors from "cors";
 import {Global} from "../global";
-import rootRoute from "../routes/index";
 import {Const} from "./const";
 import {Env} from "./env";
+import {ResponseChain} from "./index";
 import {RedisClient} from "./redis";
+
+import rootRoute from "../routes/index";
 
 /**
  * Web
@@ -95,11 +98,20 @@ export class Web {
     this.app.set("view cache", Const.PRODUCTION);
     this.app.set("view engine", "pug");
 
+    this.app.use(ResponseChain.middleware());
+
     if (Const.STAGING) {
       this.app.use(morgan("tiny"));
     }
 
     this.app.use(helmet());
+
+    this.app.use(cors({
+      origin(origin, callback) {
+        callback(null, Env.CORS_WHITELIST.length === 0 || Env.CORS_WHITELIST.indexOf(origin) !== -1);
+      },
+    }));
+
     this.app.use(compression());
     this.app.use(bearerToken());
 
@@ -116,6 +128,8 @@ export class Web {
     }));
 
     this.app.use("/", rootRoute);
+
+    this.app.use(ResponseChain.errorHandlerMiddleware);
   }
 
   private closeServer(server: {

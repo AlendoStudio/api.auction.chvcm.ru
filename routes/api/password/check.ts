@@ -1,4 +1,4 @@
-import {NotEmptyStringUnit, ObjectUnit, RequestValidator} from "@alendo/express-req-validator";
+import {ObjectUnit, RequestValidator, StringUnit} from "@alendo/express-req-validator";
 
 import {Router} from "express";
 import * as zxcvbn from "zxcvbn";
@@ -12,10 +12,10 @@ export default router;
  * @api {post} /password/check Проверить пароль
  * @apiVersion 0.0.0
  * @apiName PasswordCheck
- * @apiGroup SignIn
+ * @apiGroup Utils
  * @apiPermission Гость
  *
- * @apiParam {string} password Пароль
+ * @apiParam {string} password Пароль (учитываются только первые 72 символа)
  *
  * @apiSuccess {object} score Рейтинг пароля
  * @apiSuccess {number=0,1,2,3,4} score.actual Текущий рейтинг пароля
@@ -29,8 +29,11 @@ export default router;
  * @apiError (Bad Request 400 - Параметр равен null) {string="OBJECT_NULL_VALUE"} code Код ошибки
  * @apiError (Bad Request 400 - Параметр равен null) {string} message Подробное описание ошибки
  *
- * @apiError (Bad Request 400 - Параметр password неверный) {string="WRONG_NOT_EMPTY_STRING"} code Код ошибки
- * @apiError (Bad Request 400 - Параметр password неверный) {string} message Подробное описание ошибки
+ * @apiError (Bad Request 400 - Параметр password не строка) {string="WRONG_STRING"} code Код ошибки
+ * @apiError (Bad Request 400 - Параметр password не строка) {string} message Подробное описание ошибки
+ *
+ * @apiError (Bad Request 400 - Параметр password не той длины) {string="WRONG_STRING_LENGTH_RANGE"} code Код ошибки
+ * @apiError (Bad Request 400 - Параметр password не той длины) {string} message Подробное описание ошибки
  *
  * @apiUse v000CommonHeaders
  */
@@ -39,7 +42,11 @@ router.post("/", new RequestValidator({
     Unit: ObjectUnit,
     payload: {
       password: {
-        Unit: NotEmptyStringUnit,
+        Unit: StringUnit,
+        payload: {
+          maxLength: 72,
+          minLength: 1,
+        },
       },
     },
   },

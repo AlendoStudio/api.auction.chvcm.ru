@@ -120,7 +120,7 @@ describe("POST /signin", () => {
         });
     });
 
-    it("400 Bad Request - password", async () => {
+    it("400 Bad Request - empty password", async () => {
       await supertest(Web.instance.app).post(`${Const.API_MOUNT_POINT}/signin`)
         .send({
           email: "admin@example.com",
@@ -128,7 +128,19 @@ describe("POST /signin", () => {
         })
         .expect(400, {
           code: ZxcvbnUnitCodes.WRONG_ZXCVBN,
-          message: `body.password: password minimum score must be >= ${Const.MINIMUM_PASSWORD_SCORE}`,
+          message: "body.password: string length must be in range [1, 72]",
+        });
+    });
+
+    it("400 Bad Request - long password", async () => {
+      await supertest(Web.instance.app).post(`${Const.API_MOUNT_POINT}/signin`)
+        .send({
+          email: "admin@example.com",
+          password: new Array(73).fill("a").join(""),
+        })
+        .expect(400, {
+          code: ZxcvbnUnitCodes.WRONG_ZXCVBN,
+          message: "body.password: string length must be in range [1, 72]",
         });
     });
 
@@ -369,7 +381,7 @@ describe("POST /signin", () => {
         });
     });
 
-    it("400 Bad Request - password", async () => {
+    it("400 Bad Request - empty password", async () => {
       await supertest(Web.instance.app).post(`${Const.API_MOUNT_POINT}/signin`)
         .send({
           email: "admin@example.com",
@@ -377,7 +389,19 @@ describe("POST /signin", () => {
         })
         .expect(400, {
           code: ZxcvbnUnitCodes.WRONG_ZXCVBN,
-          message: `body.password: password minimum score must be >= ${Const.MINIMUM_PASSWORD_SCORE}`,
+          message: "body.password: string length must be in range [1, 72]",
+        });
+    });
+
+    it("400 Bad Request - long password", async () => {
+      await supertest(Web.instance.app).post(`${Const.API_MOUNT_POINT}/signin`)
+        .send({
+          email: "admin@example.com",
+          password: new Array(73).fill("a").join(""),
+        })
+        .expect(400, {
+          code: ZxcvbnUnitCodes.WRONG_ZXCVBN,
+          message: "body.password: string length must be in range [1, 72]",
         });
     });
 

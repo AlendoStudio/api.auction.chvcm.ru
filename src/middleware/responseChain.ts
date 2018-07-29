@@ -1,6 +1,8 @@
 import {IResponseChainContext, ResponseChain as SuperResponseChain} from "@alendo/express-res-chain";
 import {NextFunction, Request, Response} from "express";
 
+import {ApiCodes} from "../apiCodes";
+
 /**
  * Response chain
  */
@@ -17,6 +19,25 @@ export class ResponseChain extends SuperResponseChain<ResponseChain> {
         }
       });
     };
+  }
+
+  /**
+   * Error handler middleware
+   * @param error Error
+   * @param req Request
+   * @param res Response
+   * @param next Next function
+   */
+  public static async errorHandlerMiddleware(error: Error & { statusCode: number; },
+                                             req: Request, res: Response, next?: NextFunction) {
+    await res.achain
+      .check(() => {
+        return error.statusCode !== 413;
+      }, ApiCodes.PAYLOAD_TOO_LARGE_ERROR, "payload too large error", 413)
+      .action(() => {
+        throw error;
+      })
+      .execute(next);
   }
 
   /**

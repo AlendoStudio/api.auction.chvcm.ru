@@ -1,11 +1,9 @@
 import {Router} from "express";
 
-import {Const, ResponseChain} from "src";
+import {Const} from "src";
 
 const router = Router();
 export default router;
-
-router.use(ResponseChain.middleware());
 
 import api from "./api/index";
 import root from "./root";

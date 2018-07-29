@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@alendo/express-req-validator@https://github.com/AlendoStudio/node-express-req-validator/releases/download/v0.0.0-alpha.1/alendo-express-req-validator-v0.0.0.tgz":
+"@alendo/express-req-validator@https://github.com/AlendoStudio/node-express-req-validator.git#bf84fe66552816340f99119fe9791068ce03ceb1":
   version "0.0.0"
-  resolved "https://github.com/AlendoStudio/node-express-req-validator/releases/download/v0.0.0-alpha.1/alendo-express-req-validator-v0.0.0.tgz#2a00a0861740432ffa350985624a7b3fd14a4087"
+  resolved "https://github.com/AlendoStudio/node-express-req-validator.git#bf84fe66552816340f99119fe9791068ce03ceb1"
   dependencies:
     "@alendo/express-res-chain" "https://github.com/AlendoStudio/node-express-res-chain/releases/download/v0.0.0-alpha.1/alendo-express-res-chain-v0.0.0.tgz"
     "@types/express" "^4.16.0"

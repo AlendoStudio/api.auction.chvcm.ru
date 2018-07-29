@@ -96,7 +96,7 @@ describe("POST /password/reset", () => {
       });
   });
 
-  it("wrong password", async () => {
+  it("empty password", async () => {
     await supertest(Web.instance.app).post(`${Const.API_MOUNT_POINT}/password/reset`)
       .set("Authorization", `Bearer ${passwordResetToken}`)
       .send({
@@ -104,7 +104,19 @@ describe("POST /password/reset", () => {
       })
       .expect(400, {
         code: ZxcvbnUnitCodes.WRONG_ZXCVBN,
-        message: `body.password: password minimum score must be >= ${Const.MINIMUM_PASSWORD_SCORE}`,
+        message: "body.password: string length must be in range [1, 72]",
+      });
+  });
+
+  it("long password", async () => {
+    await supertest(Web.instance.app).post(`${Const.API_MOUNT_POINT}/password/reset`)
+      .set("Authorization", `Bearer ${passwordResetToken}`)
+      .send({
+        password: new Array(73).fill("a").join(""),
+      })
+      .expect(400, {
+        code: ZxcvbnUnitCodes.WRONG_ZXCVBN,
+        message: "body.password: string length must be in range [1, 72]",
       });
   });
 

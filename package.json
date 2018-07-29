@@ -40,6 +40,7 @@
     ],
     "exclude": [
       "**/*.d.ts",
+      "**/index.ts",
       "**/interfaces/**/*.ts",
       "test/**/*.ts",
       "apidoc",
@@ -72,7 +73,7 @@
   },
   "homepage": "https://github.com/AlendoStudio/api.auction.chvcm.ru#readme",
   "dependencies": {
-    "@alendo/express-req-validator": "https://github.com/AlendoStudio/node-express-req-validator/releases/download/v0.0.0-alpha.1/alendo-express-req-validator-v0.0.0.tgz",
+    "@alendo/express-req-validator": "https://github.com/AlendoStudio/node-express-req-validator.git#bf84fe66552816340f99119fe9791068ce03ceb1",
     "@alendo/express-res-chain": "https://github.com/AlendoStudio/node-express-res-chain/releases/download/v0.0.0-alpha.1/alendo-express-res-chain-v0.0.0.tgz",
     "@alendo/pg-migrate": "https://github.com/AlendoStudio/node-pg-migrate/releases/download/v0.0.0-alpha.1/alendo-pg-migrate-v0.0.0.tgz",
     "@alendo/recaptcha": "https://github.com/AlendoStudio/node-recaptcha/releases/download/v0.0.0-alpha.1/alendo-recaptcha-0.0.0.tgz",
