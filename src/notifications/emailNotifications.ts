@@ -89,6 +89,13 @@ export class EmailNotifications extends EventEmitter {
           },
         },
       },
+      juice: true,
+      juiceResources: {
+        preserveImportant: true,
+        webResources: {
+          relativeTo: Global.baseDir,
+        },
+      },
       message: {
         from: Env.EMAIL_FROM,
       },

@@ -3,6 +3,7 @@
 .vscode/
 
 apidoc/
+build/
 coverage/
 docker/
 docs/

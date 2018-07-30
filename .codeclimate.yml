@@ -18,6 +18,7 @@ exclude_patterns:
 - ".nyc_output/"
 - ".vscode/"
 - "apidoc/"
+- "build/"
 - "coverage/"
 # Default
 - "config/"

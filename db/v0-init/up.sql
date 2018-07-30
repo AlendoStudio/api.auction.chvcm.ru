@@ -520,17 +520,6 @@ CREATE TABLE lot_participants (
   PRIMARY KEY (lotid, userid)
 );
 
--- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ BROADCAST ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ --
-
--- Broadcast messages by email - about lots
--- CREATE TABLE broadcast_email_lots (
---   lotid  BIGINT REFERENCES lots (id)
---   ON DELETE RESTRICT ON UPDATE CASCADE, -- lot id
---   userid BIGINT REFERENCES users_entities (userid)
---   ON DELETE RESTRICT ON UPDATE CASCADE, -- entity id
---   PRIMARY KEY (lotid, userid)
--- );
-
 ----------------------------------------------------------------------------
 --                                                                        --
 --                                 VIEWS                                  --

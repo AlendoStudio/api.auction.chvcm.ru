@@ -83,13 +83,11 @@ export class Env {
 
   /**
    * Maximum body size in "bytes" notation
-   * @type {string}
    */
-  public static readonly EXPRESS_BODY_PARSER_LIMIT: string = process.env.EXPRESS_BODY_LIMIT as string;
+  public static readonly EXPRESS_BODY_PARSER_LIMIT: number = bytes(process.env.EXPRESS_BODY_PARSER_LIMIT as string);
 
   /**
    * Max file size in "bytes" notation
-   * @type {string}
    */
   public static readonly BUSBOY_LIMITS_FILESIZE: number = bytes(process.env.BUSBOY_LIMITS_FILESIZE as string);
 

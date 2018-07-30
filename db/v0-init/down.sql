@@ -11,8 +11,6 @@
 DROP VIEW employees;
 DROP VIEW entities;
 
--- DROP TABLE broadcast_email_lots;
-
 DROP TABLE lot_participants;
 DROP TABLE lots;
 DROP TABLE stuff_translations;

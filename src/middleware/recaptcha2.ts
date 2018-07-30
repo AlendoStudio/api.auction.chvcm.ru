@@ -1,3 +1,6 @@
+// tslint:disable no-reference
+/// <reference path="../../types/index.d.ts" />
+
 import {Recaptcha2 as SuperRecaptcha2} from "@alendo/recaptcha";
 
 import {NextFunction, Request, Response} from "express";

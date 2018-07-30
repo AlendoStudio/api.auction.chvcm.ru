@@ -2,7 +2,6 @@ import * as http from "http";
 import * as path from "path";
 
 import * as bodyParser from "body-parser";
-import * as cachePugTemplates from "cache-pug-templates";
 import * as compression from "compression";
 import * as express from "express";
 import {Express} from "express";
@@ -16,7 +15,6 @@ import {Global} from "../global";
 import {Const} from "./const";
 import {Env} from "./env";
 import {ResponseChain} from "./index";
-import {RedisClient} from "./redis";
 
 import rootRoute from "../routes/index";
 
@@ -83,7 +81,6 @@ export class Web {
   public listen(): Promise<void> {
     return new Promise<void>((resolve) => {
       this.server.listen(Env.PORT, Env.HOST, () => {
-        cachePugTemplates(this.app, RedisClient.instance, this._views);
         resolve();
       });
     });
@@ -94,10 +91,6 @@ export class Web {
   }
 
   private initApp() {
-    this.app.set("views", this._views);
-    this.app.set("view cache", Const.PRODUCTION);
-    this.app.set("view engine", "pug");
-
     this.app.use(ResponseChain.middleware());
 
     if (Const.STAGING) {
@@ -105,6 +98,8 @@ export class Web {
     }
 
     this.app.use(helmet());
+
+    this.app.use(express.static(path.join(Global.baseDir, "build")));
 
     this.app.use(cors({
       origin(origin, callback) {
