@@ -789,9 +789,9 @@ cache-base@^1.0.1:
     union-value "^1.0.0"
     unset-value "^1.0.0"
 
-cache-pug-templates@^0.0.7:
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/cache-pug-templates/-/cache-pug-templates-0.0.7.tgz#bf9a1e5e1e2fbfb24798e2d4af229b56d935f14b"
+cache-pug-templates@^0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/cache-pug-templates/-/cache-pug-templates-0.0.8.tgz#c7f59db39cfdad0f9df48573c071cbefd412fed0"
   dependencies:
     async "^2.5.0"
     debug "^3.0.1"
