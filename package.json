@@ -137,7 +137,7 @@
     "redis": "^2.8.0",
     "rimraf": "^2.6.2",
     "sequelize": "https://github.com/AlendoStudio/sequelize.git#adf76e9e1b2df1696366a1022a3bec42f39c8e5e",
-    "typescript": "^2.9.2",
+    "typescript": "^3.0.0",
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
