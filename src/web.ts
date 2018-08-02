@@ -41,12 +41,10 @@ export class Web {
 
   private readonly _app: Express;
   private readonly _server: http.Server;
-  private readonly _views: string;
 
   private constructor() {
     this._app = express();
     this._server = http.createServer(this._app);
-    this._views = path.join(Global.baseDir, "views");
     this.init();
   }
 
