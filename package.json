@@ -153,7 +153,7 @@
     "nyc": "12.0.2",
     "preview-email": "0.0.7",
     "sinon": "6.1.4",
-    "source-map-support": "0.5.7",
+    "source-map-support": "0.5.8",
     "supertest": "3.1.0",
     "ts-node": "7.0.0",
     "tslint": "5.11.0"
