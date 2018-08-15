@@ -265,9 +265,9 @@
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@types/events/-/events-1.2.0.tgz#81a6731ce4df43619e5c8c945383b3e62a89ea86"
 
-"@types/express-fileupload@^0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@types/express-fileupload/-/express-fileupload-0.1.1.tgz#d76c4f88655096d8b0eada1c7d38a61fb0af94ff"
+"@types/express-fileupload@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@types/express-fileupload/-/express-fileupload-0.4.0.tgz#6e41166011f038e74c52adc0de39e82a5c4ddce3"
   dependencies:
     "@types/express" "*"
 
