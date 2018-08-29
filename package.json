@@ -115,7 +115,7 @@
     "cuid": "^2.1.1",
     "debug": "^3.1.0",
     "dotenv": "^6.0.0",
-    "email-templates": "^4.0.1",
+    "email-templates": "^5.0.0",
     "express": "^4.16.3",
     "express-bearer-token": "^2.2.0",
     "express-fileupload": "^0.4.0",
