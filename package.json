@@ -141,14 +141,14 @@
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
-    "@types/chai": "4.1.4",
+    "@types/chai": "4.1.5",
     "@types/mocha": "5.2.5",
     "@types/sinon": "5.0.2",
     "@types/supertest": "2.0.6",
     "apidoc": "0.17.6",
     "axios": "0.18.0",
     "axios-mock-adapter": "1.15.0",
-    "chai": "4.1.2",
+    "chai": "4.2.0",
     "mocha": "5.2.0",
     "nyc": "13.0.1",
     "preview-email": "0.0.8",
