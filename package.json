@@ -81,7 +81,7 @@
     "@alendo/pg-migrate": "https://github.com/AlendoStudio/node-pg-migrate/releases/download/v0.0.0-alpha.1/alendo-pg-migrate-v0.0.0.tgz",
     "@alendo/recaptcha": "https://github.com/AlendoStudio/node-recaptcha/releases/download/v0.0.0-alpha.1/alendo-recaptcha-0.0.0.tgz",
     "@fortawesome/fontawesome-free": "^5.2.0",
-    "@types/bcrypt": "^2.0.0",
+    "@types/bcrypt": "^3.0.0",
     "@types/body-parser": "^1.17.0",
     "@types/bytes": "^3.0.0",
     "@types/compression": "^0.0.36",
