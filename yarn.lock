@@ -200,9 +200,9 @@
   dependencies:
     "@types/babel-types" "*"
 
-"@types/bcrypt@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@types/bcrypt/-/bcrypt-2.0.0.tgz#74cccef82026341fd786cf2eb9c912c7f9107c55"
+"@types/bcrypt@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@types/bcrypt/-/bcrypt-3.0.0.tgz#851489a9065a067cb7f3c9cbe4ce9bed8bba0876"
 
 "@types/bluebird@*":
   version "3.5.23"
