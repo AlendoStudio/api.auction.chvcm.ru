@@ -143,7 +143,7 @@
   "devDependencies": {
     "@types/chai": "4.1.6",
     "@types/mocha": "5.2.5",
-    "@types/sinon": "5.0.2",
+    "@types/sinon": "5.0.3",
     "@types/supertest": "2.0.6",
     "apidoc": "0.17.6",
     "axios": "0.18.0",
