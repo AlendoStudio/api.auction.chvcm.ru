@@ -4,18 +4,18 @@ import * as SuperSequelize from "sequelize";
 import {Const} from "../const";
 import {Env} from "../env";
 import {
-  IAttachmentModel,
-  IEmployeeModel,
-  IEntityModel,
-  ILotModel,
-  ILotParticipantsModel,
-  IStuffModel,
-  IStuffTranslationsModel,
-  ITokensPasswordResetModel,
-  ITokensTfaEmailModel,
-  ITokensTfaPurgatoryModel,
-  ITokensTfaRecoveryModel,
-  IUserModel,
+  IAttachmentAttributes, IAttachmentInstance, IAttachmentModel,
+  IEmployeeAttributes, IEmployeeInstance, IEmployeeModel,
+  IEntityAttributes, IEntityInstance, IEntityModel,
+  ILotAttributes, ILotInstance, ILotModel,
+  ILotParticipantsAttributes, ILotParticipantsInstance, ILotParticipantsModel,
+  IStuffAttributes, IStuffInstance, IStuffModel,
+  IStuffTranslationsAttributes, IStuffTranslationsInstance, IStuffTranslationsModel,
+  ITokensPasswordResetAttributes, ITokensPasswordResetInstance, ITokensPasswordResetModel,
+  ITokensTfaEmailAttributes, ITokensTfaEmailInstance, ITokensTfaEmailModel,
+  ITokensTfaPurgatoryAttributes, ITokensTfaPurgatoryInstance, ITokensTfaPurgatoryModel,
+  ITokensTfaRecoveryAttributes, ITokensTfaRecoveryInstance, ITokensTfaRecoveryModel,
+  IUserAttributes, IUserInstance, IUserModel,
 } from "../interfaces";
 
 /**
@@ -297,7 +297,7 @@ export class Sequelize extends SuperSequelize {
       type: "USER_TYPE",
       values: ["employee", "entity"],
     };
-    this._user = this.define("users_common", attributes, {
+    this._user = this.define<IUserInstance, IUserAttributes>("users_common", attributes, {
       freezeTableName: true,
     });
   }
@@ -314,7 +314,7 @@ export class Sequelize extends SuperSequelize {
       defaultValue: false,
       type: SuperSequelize.BOOLEAN,
     };
-    this._employee = this.define("employees", attributes, {
+    this._employee = this.define<IEmployeeInstance, IEmployeeAttributes>("employees", attributes, {
       freezeTableName: true,
     });
   }
@@ -340,13 +340,13 @@ export class Sequelize extends SuperSequelize {
       defaultValue: false,
       type: SuperSequelize.BOOLEAN,
     };
-    this._entity = this.define("entities", attributes, {
+    this._entity = this.define<IEntityInstance, IEntityAttributes>("entities", attributes, {
       freezeTableName: true,
     });
   }
 
   private defineAttachment() {
-    this._attachment = this.define("attachments", {
+    this._attachment = this.define<IAttachmentInstance, IAttachmentAttributes>("attachments", {
       url: {
         allowNull: false,
         type: SuperSequelize.TEXT,
@@ -368,7 +368,8 @@ export class Sequelize extends SuperSequelize {
   }
 
   private defineTokensTfaPurgatory() {
-    this._tokensTfaPurgatory = this.define("tokens_tfa_purgatory",
+    this._tokensTfaPurgatory = this.define<ITokensTfaPurgatoryInstance, ITokensTfaPurgatoryAttributes>(
+      "tokens_tfa_purgatory",
       Sequelize.defineTokensTfaPurgatoryAndPasswordResetAttributes(Const.TOKENS_TFA_PURGATORY_EXPIRESIN), {
         freezeTableName: true,
       });
@@ -382,7 +383,8 @@ export class Sequelize extends SuperSequelize {
   }
 
   private defineTokensPasswordReset() {
-    this._tokensPasswordReset = this.define("tokens_password_reset",
+    this._tokensPasswordReset = this.define<ITokensPasswordResetInstance, ITokensPasswordResetAttributes>(
+      "tokens_password_reset",
       Sequelize.defineTokensTfaPurgatoryAndPasswordResetAttributes(Const.TOKENS_PASSWORD_RESET_EXPIRESIN), {
         freezeTableName: true,
       });
@@ -396,9 +398,10 @@ export class Sequelize extends SuperSequelize {
   }
 
   private defineTokensTfaRecovery() {
-    this._tokensTfaRecovery = this.define("tokens_tfa_recovery", Sequelize.defineTokensTfaRecoveryAttributes, {
-      freezeTableName: true,
-    });
+    this._tokensTfaRecovery = this.define<ITokensTfaRecoveryInstance, ITokensTfaRecoveryAttributes>(
+      "tokens_tfa_recovery", Sequelize.defineTokensTfaRecoveryAttributes, {
+        freezeTableName: true,
+      });
     this.user.hasMany(this._tokensTfaRecovery, {
       foreignKey: "userid",
       sourceKey: "id",
@@ -414,9 +417,10 @@ export class Sequelize extends SuperSequelize {
       allowNull: false,
       type: SuperSequelize.STRING,
     };
-    this._tokensTfaEmail = this.define("tokens_tfa_email", attributes, {
-      freezeTableName: true,
-    });
+    this._tokensTfaEmail = this.define<ITokensTfaEmailInstance, ITokensTfaEmailAttributes>(
+      "tokens_tfa_email", attributes, {
+        freezeTableName: true,
+      });
     this.tokensTfaPurgatory.hasMany(this._tokensTfaEmail, {
       foreignKey: "purgatory",
       sourceKey: "token",
@@ -427,7 +431,7 @@ export class Sequelize extends SuperSequelize {
   }
 
   private defineStuff() {
-    this._stuff = this.define("stuffs", {
+    this._stuff = this.define<IStuffInstance, IStuffAttributes>("stuffs", {
       enabled: {
         allowNull: false,
         defaultValue: true,
@@ -444,22 +448,23 @@ export class Sequelize extends SuperSequelize {
   }
 
   private defineStuffTranslations() {
-    this._stuffTranslations = this.define("stuff_translations", {
-      code: {
-        primaryKey: true,
-        type: "LANGUAGE_CODE",
-      },
-      stuffid: {
-        primaryKey: true,
-        type: SuperSequelize.BIGINT,
-      },
-      translation: {
-        allowNull: false,
-        type: SuperSequelize.JSONB,
-      },
-    }, {
-      freezeTableName: true,
-    });
+    this._stuffTranslations = this.define<IStuffTranslationsInstance, IStuffTranslationsAttributes>(
+      "stuff_translations", {
+        code: {
+          primaryKey: true,
+          type: "LANGUAGE_CODE",
+        },
+        stuffid: {
+          primaryKey: true,
+          type: SuperSequelize.BIGINT,
+        },
+        translation: {
+          allowNull: false,
+          type: SuperSequelize.JSONB,
+        },
+      }, {
+        freezeTableName: true,
+      });
     this.stuff.hasMany(this._stuffTranslations, {
       foreignKey: "stuffid",
       sourceKey: "id",
@@ -470,7 +475,7 @@ export class Sequelize extends SuperSequelize {
   }
 
   private defineLot() {
-    this._lot = this.define("lots", {
+    this._lot = this.define<ILotInstance, ILotAttributes>("lots", {
       amount: {
         allowNull: false,
         type: SuperSequelize.NUMERIC,
@@ -547,18 +552,19 @@ export class Sequelize extends SuperSequelize {
   }
 
   private defineLotParticipants() {
-    this._lotParticipants = this.define("lot_participants", {
-      lotid: {
-        primaryKey: true,
-        type: SuperSequelize.BIGINT,
-      },
-      userid: {
-        primaryKey: true,
-        type: SuperSequelize.BIGINT,
-      },
-    }, {
-      freezeTableName: true,
-    });
+    this._lotParticipants = this.define<ILotParticipantsInstance, ILotParticipantsAttributes>(
+      "lot_participants", {
+        lotid: {
+          primaryKey: true,
+          type: SuperSequelize.BIGINT,
+        },
+        userid: {
+          primaryKey: true,
+          type: SuperSequelize.BIGINT,
+        },
+      }, {
+        freezeTableName: true,
+      });
     this.lot.hasMany(this._lotParticipants, {
       foreignKey: "lotid",
       sourceKey: "id",

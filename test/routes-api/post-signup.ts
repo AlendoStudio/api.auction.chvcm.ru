@@ -444,7 +444,7 @@ describe("POST /signup", () => {
         language: "ru",
         name: "Luminoso",
         password: "super duper password",
-        phone: "+9923456789",
+        phone: "++9923456789",
         psrn: 1_02_76_01_59327_1,
       })
       .expect(400, {
