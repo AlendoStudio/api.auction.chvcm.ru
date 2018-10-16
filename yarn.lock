@@ -1298,7 +1298,7 @@ async-limiter@~1.0.0:
   resolved "https://registry.yarnpkg.com/async-limiter/-/async-limiter-1.0.0.tgz#78faed8c3d074ab81f22b4e985d79e8738f720f8"
   integrity sha512-jp/uFnooOiO+L211eZOoSyzpOITMXx1rBITauYykG3BRYPu8h0UcxsPNB04RR5vo4Tyz3+ay17tR6JVf9qzYWg==
 
-async@^2.1.2, async@^2.5.0:
+async@^2.1.2, async@^2.5.0, async@^2.6.1:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/async/-/async-2.6.1.tgz#b245a23ca71930044ec53fa46aa00a3e87c6a610"
   integrity sha512-fNEiL2+AZt6AlAw/29Cr0UDe4sRAHCpEHh54WMz+Bb7QfNcFw4h3loofyJpLeQs4Yx7yuqu/2dLgM5hKOs6HlQ==
@@ -1724,13 +1724,13 @@ cache-base@^1.0.1:
     union-value "^1.0.0"
     unset-value "^1.0.0"
 
-cache-pug-templates@^0.0.8:
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/cache-pug-templates/-/cache-pug-templates-0.0.8.tgz#c7f59db39cfdad0f9df48573c071cbefd412fed0"
-  integrity sha512-9dkDXm3z+tTfb8ZooD+U376r1xuNl9rDaxpbrsqiZcp+mJtud3FixRqhKKqcl3WfbYLvuByB0vd5vsjtqqUBCA==
+cache-pug-templates@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/cache-pug-templates/-/cache-pug-templates-0.1.0.tgz#870d969c679c868a802f41608eb7ca2b84600495"
+  integrity sha512-d6i8pOXgiNGKEGKvHWzq140I0+Q7LmRo0aLzqyofU7RdSakCavNCMajcu3ZMlzoG1cTVPWjN6dKyYs22u3du6w==
   dependencies:
-    async "^2.5.0"
-    debug "^3.0.1"
+    async "^2.6.1"
+    debug "^4.1.0"
     rev-hash "^2.0.0"
 
 caching-transform@^2.0.0:
@@ -2640,10 +2640,17 @@ debug@3.1.0, debug@=3.1.0:
   dependencies:
     ms "2.0.0"
 
-debug@^3.0.1, debug@^3.1.0:
+debug@^3.1.0:
   version "3.2.5"
   resolved "https://registry.yarnpkg.com/debug/-/debug-3.2.5.tgz#c2418fbfd7a29f4d4f70ff4cea604d4b64c46407"
   integrity sha512-D61LaDQPQkxJ5AUM2mbSJRbPkNs/TmdmOeLAi1hgDkpDfIfetSrjmWhccwtuResSwMbACjx/xXQofvM9CE/aeg==
+  dependencies:
+    ms "^2.1.1"
+
+debug@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-4.1.0.tgz#373687bffa678b38b1cd91f861b63850035ddc87"
+  integrity sha512-heNPJUJIqC+xB6ayLAMHaIrmN9HKa7aQO8MGqKpvCA+uJYVcvR6l5kgdrhRuwPFHU7P5/A1w0BjByPHwpfTDKg==
   dependencies:
     ms "^2.1.1"
 
