@@ -152,7 +152,7 @@
     "mocha": "5.2.0",
     "nyc": "13.1.0",
     "preview-email": "0.0.10",
-    "sinon": "7.2.2",
+    "sinon": "7.2.3",
     "source-map-support": "0.5.10",
     "supertest": "3.4.1",
     "ts-node": "7.0.1",
