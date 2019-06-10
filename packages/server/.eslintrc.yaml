@@ -1,0 +1,17 @@
+overrides:
+  - files:
+      - "*.js"
+    rules:
+      "@typescript-eslint/no-var-requires": "off"
+plugins:
+  - "@typescript-eslint"
+parserOptions:
+  parser: "@typescript-eslint/parser"
+rules:
+  "@typescript-eslint/explicit-function-return-type": "off"
+  "@typescript-eslint/interface-name-prefix": "off"
+  "@typescript-eslint/no-unused-vars": "off"  # TODO: https://github.com/typescript-eslint/typescript-eslint/issues/363
+extends:
+  - "plugin:@typescript-eslint/recommended"
+  - "plugin:prettier/recommended"
+  - "prettier/@typescript-eslint"

@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig",
+  "compilerOptions": {
+    "inlineSources": true,
+    "sourceRoot": "/"
+  },
+  "exclude": [
+    "./test"
+  ]
+}

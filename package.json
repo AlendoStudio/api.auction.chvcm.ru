@@ -1,0 +1,15 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "lerna run --stream build",
+    "clean": "lerna run --stream clean",
+    "gen:dotenv": "node scripts/gen-dotenv.js",
+    "lint": "lerna run --stream lint"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "lerna": "^3.15.0"
+  }
+}

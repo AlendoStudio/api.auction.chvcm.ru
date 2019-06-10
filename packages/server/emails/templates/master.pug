@@ -1,0 +1,21 @@
+html
+  head
+    meta(charset="utf-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
+    link(rel="stylesheet" href="/build/bootstrap.min.css" data-inline)
+  body
+    div.mt-3
+      img(src="/emails/assets/logo.png" alt="logo").mx-auto.d-block
+    div.mt-3
+      div.container
+        block content
+        small.text-muted
+          | !{t("master.you_received_this_email")}
+    hr
+    div.container-fluid
+      address
+        strong АО "Челябвторцветмет"
+        br
+        a(href="mailto:info@chvcm.ru") info@chvcm.ru
+        br
+        a(href="tel:+73517411406") +7 (351) 741-14-06

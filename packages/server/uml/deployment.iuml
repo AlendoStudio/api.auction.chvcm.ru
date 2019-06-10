@@ -1,0 +1,23 @@
+@startuml deployment
+
+left to right direction
+
+node Клиент as Client
+node "API Сервер" as API {
+  component "RESTful API" as REST
+  component "WebSocket API" as Socket
+}
+database "PostgreSQL" as Postgres
+database "Redis" as Redis
+cloud "AWS S3" as S3
+node "SMTP сервер" as SMTP
+
+Client ..> REST
+REST .> Socket
+Client <.. Socket
+REST ..> Postgres
+Socket <..> Redis
+REST ..> S3
+REST ..> SMTP
+
+@enduml

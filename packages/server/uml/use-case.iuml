@@ -1,0 +1,33 @@
+@startuml use-case
+
+left to right direction
+
+actor :Гость: as Guest
+actor :Пользователь: as User
+actor :Юр. лицо: as Entity
+actor :Модератор: as Moderator
+actor :Админ: as Admin
+
+User <|-- Entity
+User <|-- Moderator
+User <|-- Admin
+
+rectangle Интернет-аукцион {
+  (Зарегистрироваться) as SignUp
+  (Войти в систему) as SignIn
+  (Управлять своим аккаунтом) as AccessYourself
+  (Участвовать в аукционе) as ParticipateAuction
+  (Управлять юр. лицами) as AccessEntities
+  (Управлять аукционом) as AccessAuction
+  (Управлять сотрудниками) as AccessEmployees
+
+  Guest -- SignUp
+  Guest -- SignIn
+  User -- AccessYourself
+  Entity -- ParticipateAuction
+  Moderator -- AccessEntities
+  Moderator -- AccessAuction
+  Admin -- AccessEmployees
+}
+
+@enduml

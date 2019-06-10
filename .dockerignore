@@ -1,0 +1,14 @@
+**/.git
+**/.idea
+**/.nuxt
+**/.nyc_output
+**/.vscode
+**/apidoc
+**/build
+**/coverage
+**/dist
+**/docker
+**/node_modules
+
+**/*.tgz
+**/.env

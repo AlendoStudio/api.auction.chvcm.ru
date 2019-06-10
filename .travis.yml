@@ -1,0 +1,107 @@
+language: node_js
+node_js:
+  - 'lts/*'
+  - 'node'
+cache:
+  yarn: true
+dist: xenial
+
+services:
+  - docker
+
+env:
+  global:
+    # Node.js
+    - NODE_ENV=staging
+    # DB
+    - AWS_ACCESS_KEY_ID=key
+    - AWS_SECRET_ACCESS_KEY=secret
+    - AWS_S3_BUCKET=api.auction.chvcm.ru
+    - AWS_S3_ENDPOINT=http://localhost:4567
+    - DATABASE_POOL_MAX=10
+    - DATABASE_URL=postgresql://postgres:postgres@localhost:5432/postgres
+    - REDIS_URL=redis://localhost:6379
+    # Web
+    - EXPRESS_BODY_LIMIT_JSON=100kb
+    - EXPRESS_BODY_LIMIT_RAW=1mb
+    - PORT=8080
+    - HOST=0.0.0.0
+    # Email
+    - EMAIL_FROM=Bender Bending Rodríguez <bender@ilovebender.com>
+    - EMAIL_SMTP=smtps://username:password@smtp.example.com/?pool=true
+    # Internal
+    - JWT_SECRET=jwt
+    - RECAPTCHA_SECRET=6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe
+    - RECAPTCHA_SITE=6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI
+    # Docker
+    - COMPOSE_PROJECT_NAME=api.auction.chvcm.ru
+    - COMPOSE_RESTART=no
+    # PostgreSQL
+    - POSTGRES_PORT=5432
+    - POSTGRES_PASSWORD=postgres
+    - POSTGRES_USER=postgres
+    - POSTGRES_DB=postgres
+    - POSTGRES_VOLUME=/mnt/alendo-api.auction.chvcm.ru-postgres-ramdisk
+    # Redis
+    - REDIS_PORT=6379
+    - REDIS_VOLUME=/mnt/alendo-api.auction.chvcm.ru-redis-ramdisk
+    # s3poxy
+    - S3PROXY_PORT=4567
+    - S3PROXY_ACCESS_KEY_ID=key
+    - S3PROXY_SECRET_ACCESS_KEY=secret
+    - S3PROXY_VOLUME=/mnt/alendo-api.auction.chvcm.ru-s3poxy-ramdisk
+  matrix:
+    - POSTGRES_TAG=11-alpine REDIS_TAG=5-alpine S3PROXY_TAG=latest
+    - POSTGRES_TAG=10-alpine REDIS_TAG=4-alpine S3PROXY_TAG=latest
+
+before_install:
+  - curl -o- -L https://yarnpkg.com/install.sh | bash -s
+  - export PATH="$HOME/.yarn/bin:$PATH"
+  - yarn global add codecov
+
+install: yarn install --production false
+
+before_script:
+  - pushd docker
+  - docker-compose -f dc-db-dev.yml up -d
+  - popd
+
+script:
+  - yarn workspace @alendo/api.auction.chvcm.ru build:email
+  - yarn workspace @alendo/api.auction.chvcm.ru test:cov
+
+after_script: codecov -f packages/server/coverage/lcov.info -F api
+
+stages:
+  - prepare cache
+  - test
+  - deploy
+jobs:
+  include:
+    - stage: prepare cache
+      before_script: true
+      script: true
+      after_script: true
+    - stage: test
+      name: lint
+      before_script: true
+      script: yarn lint
+      after_script: true
+    - stage: test
+      name: build
+      before_script: true
+      script: yarn build
+      after_script: true
+    - stage: deploy
+      name: pages
+      if: branch = master
+      before_script: true
+      script: true
+      after_script: true
+      before_deploy: yarn workspace @alendo/api.auction.chvcm.ru build:apidoc
+      deploy:
+        provider: pages
+        local-dir: packages/server/apidoc
+        skip-cleanup: true
+        github-token: $GH_TOKEN
+        keep-history: true

@@ -1,0 +1,9 @@
+plugins:
+  - "@typescript-eslint"
+parserOptions:
+  parser: "@typescript-eslint/parser"
+rules:
+  no-unused-vars: "off"  # TODO: https://github.com/typescript-eslint/typescript-eslint/issues/363
+extends:
+  - "@nuxtjs"
+  - "plugin:prettier/recommended"

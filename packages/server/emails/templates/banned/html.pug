@@ -1,0 +1,7 @@
+extends ../dear
+block content-dear
+  if (message)
+    | !{message}
+  else
+    p
+      | !{t("banned.text")}

@@ -1,0 +1,6 @@
+recursive: true
+require:
+  - ts-node/register
+  - source-map-support/register
+spec: test/**/*.ts
+timeouts: 0

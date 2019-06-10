@@ -1,0 +1,23 @@
+version: "2"
+plugins:
+  editorconfig:
+    enabled: true
+  fixme:
+    enabled: true
+  git-legal:
+    enabled: true
+  markdownlint:
+    enabled: true
+exclude_patterns:
+  - "**/.idea/"
+  - "**/.nuxt/"
+  - "**/.nyc_output/"
+  - "**/.vscode/"
+  - "**/apidoc/"
+  - "**/build/"
+  - "**/coverage/"
+  - "**/db/"
+  - "**/dist/"
+  - "**/node_modules/"
+  - "**/test/"
+  - "**/*.d.ts"

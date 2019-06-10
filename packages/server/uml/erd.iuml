@@ -1,0 +1,123 @@
+' Information Engineering (IE) data modelling notation
+' https://github.com/plantuml/plantuml/pull/31
+
+@startuml erd
+
+hide circle
+left to right direction
+
+entity users_common {
+  * id
+  --
+  * name
+  * email
+  * phone
+  password
+  * tfa
+  * language
+  * banned
+  * type
+  * registration
+}
+
+entity users_employees {
+  * user_id
+  --
+  * admin
+  * moderator
+}
+
+entity users_entities {
+  * user_id
+  --
+  * ceo
+  * psrn
+  * itn
+  * verified
+}
+
+entity tokens_tfa_purgatory {
+  * token
+  --
+  * user_id
+  * expires
+}
+
+entity tokens_tfa_otp {
+  * user_id
+  --
+  * type
+  * token
+}
+
+entity tokens_tfa_recovery {
+  * token
+  --
+  * user_id
+}
+
+entity tokens_password_reset {
+  * token
+  --
+  * user_id
+  * expires
+}
+
+entity stuffs {
+  * id
+  --
+  * amount_type
+  * enabled
+}
+
+entity stuff_translations {
+  * stuff_id
+  * code
+  --
+  * title
+  * description
+}
+
+entity lots {
+  * id
+  --
+  * stuff_id
+  * type
+  * amount
+  * start
+  * finish
+  * buffer
+  * start_bid
+  * step
+  * strict
+  * currency
+  * participants
+  winner_bid
+  winner_id
+}
+
+entity lot_participants {
+  * lot_id
+  * participant_id
+  --
+}
+
+entity migrations {
+  * name
+  --
+  * date
+}
+
+users_common::id ||--o| users_employees::user_id
+users_common::id ||--o| users_entities::user_id
+users_common::id ||--o{ tokens_tfa_purgatory::user_id
+users_common::id ||--o| tokens_tfa_otp::user_id
+users_common::id ||--o{ tokens_tfa_recovery::user_id
+users_common::id ||--o{ tokens_password_reset::user_id
+stuffs::id ||--o{ stuff_translations::stuff_id
+stuffs::id ||--o{ lots::stuff_id
+users_entities::user_id |o--o{ lots::winner_id
+lots::id ||--o{ lot_participants::lot_id
+users_entities::user_id ||--o{ lot_participants::participant_id
+
+@enduml
